@@ -1,5 +1,6 @@
 .DS_Store
 xcuserdata/
+*.xcuserdatad
 DerivedData/
 *.xcuserstate
-YumFinder/Secrets.swift
+FoodFinder/Secrets.swift
