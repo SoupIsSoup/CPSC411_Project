@@ -17,7 +17,7 @@
 		07FD273C2F9F48930074659C /* YelpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD273B2F9F488D0074659C /* YelpResponse.swift */; };
 		07FD273E2F9F48A20074659C /* YelpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD273D2F9F489D0074659C /* YelpService.swift */; };
 		07FD27402F9F48B30074659C /* FavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD273F2F9F48AC0074659C /* FavoritesManager.swift */; };
-		07FD27422F9F48C20074659C /* Secrets.example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD27412F9F48BB0074659C /* Secrets.example.swift */; };
+		07FD27442FA155C20074659C /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD27432FA155BD0074659C /* Secrets.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +33,7 @@
 		07FD273D2F9F489D0074659C /* YelpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpService.swift; sourceTree = "<group>"; };
 		07FD273F2F9F48AC0074659C /* FavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManager.swift; sourceTree = "<group>"; };
 		07FD27412F9F48BB0074659C /* Secrets.example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.example.swift; sourceTree = "<group>"; };
+		07FD27432FA155BD0074659C /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +124,7 @@
 		07FD27312F9F47F90074659C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				07FD27432FA155BD0074659C /* Secrets.swift */,
 				07FD27412F9F48BB0074659C /* Secrets.example.swift */,
 			);
 			path = Utils;
@@ -201,7 +203,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				07FD27352F9F48340074659C /* RestaurantDetailView.swift in Sources */,
-				07FD27422F9F48C20074659C /* Secrets.example.swift in Sources */,
 				07FD27292F9F47770074659C /* ContentView.swift in Sources */,
 				07FD273A2F9F48830074659C /* Restaurant.swift in Sources */,
 				07FD272A2F9F47770074659C /* FoodFinderApp.swift in Sources */,
@@ -210,6 +211,7 @@
 				07FD27332F9F48210074659C /* FavoritesView.swift in Sources */,
 				07FD27402F9F48B30074659C /* FavoritesManager.swift in Sources */,
 				07FD273E2F9F48A20074659C /* YelpService.swift in Sources */,
+				07FD27442FA155C20074659C /* Secrets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
