@@ -1,6 +1,6 @@
 //****************************************************************************************************************************
-//Program name: "ContentView.swift".  This file creates the main FoodFinder test screen, calls the Yelp API, and displays    *
-//restaurant results on the screen.  Copyright (C) 2026  Jake Miso                                                          *
+//Program name: "ContentView.swift".  This file creates the main FoodFinder screen, calls the Yelp API, and displays        *
+//restaurant results using RestaurantListView.  Copyright (C) 2026  Jake Miso                                               *
 //This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License  *
 //version 3 as published by the Free Software Foundation.                                                                    *
 //This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied         *
@@ -11,37 +11,6 @@
 
 
 
-//========1=========2=========3=========4=========5=========6=========7=========8=========9=========0=========1=========2**
-//Author information
-//  Author name: Jake Miso
-//  Author email: jamiso@csu.fullerton.edu
-//
-//Program information
-//  Program name: FoodFinder
-//  Programming language: Swift
-//  Date development of program began 2026-Apr-28
-//  Date development of program completed TBD
-//
-//Purpose
-//  Display a simple FoodFinder screen, request restaurant data from Yelp, and show the returned restaurants in a list.
-//
-//Project information
-//  Files: FoodFinderApp.swift, ContentView.swift, Restaurant.swift, YelpResponse.swift, YelpService.swift,
-//         Secrets.swift, Secrets.example.swift
-//  Status: In development.
-//
-//Translator information
-//  Apple macOS: Xcode with Swift compiler
-//
-//References and credits
-//  CPSC 411 course examples
-//  Yelp Fusion API documentation
-//
-//Format information
-//  Page width: 172 columns
-//  Begin comments: 61
-//  Optimal print specification: Landscape, 7 points, monospace, 8½x11 paper
-//
 //===== Begin code area ====================================================================================================================================================
 
 import SwiftUI                                                   //Import SwiftUI for building the user interface
@@ -52,10 +21,6 @@ import SwiftUI                                                   //Import SwiftU
 
 struct ContentView: View {                                       //Begin main SwiftUI view
 
-    //======================================================================================================================================================================
-    //===== Stored properties ==============================================================================================================================================
-    //======================================================================================================================================================================
-
     private let yelpService = YelpService()                      //Create YelpService object used to call Yelp API
 
     @State private var restaurants: [Restaurant] = []             //Store restaurants returned from Yelp API
@@ -63,13 +28,9 @@ struct ContentView: View {                                       //Begin main Sw
     @State private var category: String = "sushi"                //Store user category input
     @State private var statusMessage: String = "Press Search"    //Store message displayed to the user
 
-    //======================================================================================================================================================================
-    //===== Body property ==================================================================================================================================================
-    //======================================================================================================================================================================
-
     var body: some View {                                        //Begin body property
 
-        NavigationStack {                                        //Create navigation container
+        NavigationStack {                                        //NavigationStack allows NavigationLink to open detail screens
 
             VStack(spacing: 16) {                                //Place screen components vertically
 
@@ -94,22 +55,7 @@ struct ContentView: View {                                       //Begin main Sw
                     .font(.subheadline)                         //Use smaller font
                     .foregroundColor(.gray)                     //Make status text gray
 
-                List(restaurants) { restaurant in                //Display restaurants in a scrollable list
-
-                    VStack(alignment: .leading, spacing: 4) {    //Stack restaurant details vertically
-
-                        Text(restaurant.name)                   //Display restaurant name
-                            .font(.headline)                    //Use headline font
-
-                        Text("Rating: \(restaurant.rating ?? 0.0)") //Display rating or 0.0 if missing
-                            .font(.subheadline)                 //Use smaller font
-
-                        Text(restaurant.price ?? "No price listed") //Display price or fallback text
-                            .font(.subheadline)                 //Use smaller font
-                            .foregroundColor(.gray)             //Make price text gray
-                    }
-                    .padding(.vertical, 4)                      //Add vertical spacing inside list row
-                }
+                RestaurantListView(restaurants: restaurants)     //Display tappable restaurant results
             }
             .navigationTitle("Restaurant Search")               //Set navigation title
         }
@@ -117,9 +63,6 @@ struct ContentView: View {                                       //Begin main Sw
 
     //======================================================================================================================================================================
     //===== Search restaurants function ====================================================================================================================================
-    //======================================================================================================================================================================
-    //  This function sends the location and category values to YelpService.
-    //  The returned restaurant array is assigned to the restaurants state variable so SwiftUI updates the screen.
     //======================================================================================================================================================================
 
     private func searchRestaurants() {                          //Begin search function
@@ -135,10 +78,6 @@ struct ContentView: View {                                       //Begin main Sw
                 self.statusMessage = "Found \(results.count) restaurants" //Update result count message
 
                 print("Number of restaurants found:", results.count)      //Print result count to console
-
-                for restaurant in results {                     //Loop through all returned restaurants
-                    print("Restaurant:", restaurant.name)        //Print each restaurant name
-                }
             }
         }
     }

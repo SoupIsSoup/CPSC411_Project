@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		071BB7022FA414FA00A81F54 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 071BB7012FA414FA00A81F54 /* SQLite */; };
+		071BB7042FA414FA00A81F54 /* SQLite-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 071BB7032FA414FA00A81F54 /* SQLite-Dynamic */; };
 		07FD27292F9F47770074659C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD27262F9F47770074659C /* ContentView.swift */; };
 		07FD272A2F9F47770074659C /* FoodFinderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD27272F9F47770074659C /* FoodFinderApp.swift */; };
 		07FD272B2F9F47770074659C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07FD27252F9F47770074659C /* Assets.xcassets */; };
@@ -41,6 +43,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				071BB7042FA414FA00A81F54 /* SQLite-Dynamic in Frameworks */,
+				071BB7022FA414FA00A81F54 /* SQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +151,8 @@
 			);
 			name = FoodFinder;
 			packageProductDependencies = (
+				071BB7012FA414FA00A81F54 /* SQLite */,
+				071BB7032FA414FA00A81F54 /* SQLite-Dynamic */,
 			);
 			productName = FoodFinder;
 			productReference = 07FD270E2F9F395A0074659C /* FoodFinder.app */;
@@ -176,6 +182,9 @@
 			);
 			mainGroup = 07FD27052F9F395A0074659C;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				071BB7002FA414FA00A81F54 /* XCRemoteSwiftPackageReference "SQLite" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 07FD270F2F9F395A0074659C /* Products */;
 			projectDirPath = "";
@@ -421,6 +430,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		071BB7002FA414FA00A81F54 /* XCRemoteSwiftPackageReference "SQLite" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stephencelis/SQLite.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.16.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		071BB7012FA414FA00A81F54 /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 071BB7002FA414FA00A81F54 /* XCRemoteSwiftPackageReference "SQLite" */;
+			productName = SQLite;
+		};
+		071BB7032FA414FA00A81F54 /* SQLite-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 071BB7002FA414FA00A81F54 /* XCRemoteSwiftPackageReference "SQLite" */;
+			productName = "SQLite-Dynamic";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 07FD27062F9F395A0074659C /* Project object */;
 }
