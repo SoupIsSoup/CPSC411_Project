@@ -1,6 +1,22 @@
-import Foundation
+//****************************************************************************************************************************
+//Program name: "Secrets.example.swift".  This file is a safe example showing where an API key should be placed.  It should *
+//not contain a real API key.  Copyright (C) 2026  Jake Miso                                                                 *
+//****************************************************************************************************************************
 
-    // THE REAL SWIFT FILE NOT ON GITHUB TO PROTECT THE API KEY
-struct SecretsExample {
-    static let yelpAPIKey = "YOUR_API_KEY"
+
+
+
+//===== Begin code area ====================================================================================================================================================
+
+import Foundation                                             //Import Foundation for standard Swift support
+
+//==========================================================================================================================================================================
+//===== SecretsExample structure ===========================================================================================================================================
+//==========================================================================================================================================================================
+
+struct SecretsExample {                                      //Example-only structure not used by the app
+
+    static let yelpAPIKey = "YOUR_API_KEY_HERE"              //Placeholder API key for GitHub users
 }
+
+
