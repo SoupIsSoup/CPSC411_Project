@@ -41,7 +41,7 @@ class YelpService {                                           //Begin YelpServic
                            completion: @escaping ([Restaurant]) -> Void) {
 
         let encodedLocation = location.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "" //Make location URL-safe
-        let encodedCategory = category.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "" //Make category URL-safe
+        let encodedCategory = category.lowercased().addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "" //Make category URL-safe
 
         let query = "location=\(encodedLocation)&categories=\(encodedCategory)" //Create Yelp query string
         let urlString = "\(baseURL)?\(query)"                    //Combine endpoint and query string
