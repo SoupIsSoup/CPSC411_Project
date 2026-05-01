@@ -1,11 +1,7 @@
 //****************************************************************************************************************************
-//Program name: "RestaurantDetailView.swift".  This file displays detailed information about a selected restaurant.         *
-//It is presented when the user taps on a restaurant from the list.  Copyright (C) 2026  Jake Miso                         *
-//This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License *
-//version 3 as published by the Free Software Foundation.                                                                    *
-//This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied        *
-//warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.    *
-//A copy of the GNU General Public License v3 is available here:  <https://www.gnu.org/licenses/>.                          *
+//Program name: "RestaurantDetailView.swift".  This file displays detailed information about a selected restaurant and      *
+//allows the user to save the restaurant as a favorite using SQLite.                                                        *
+//Copyright (C) 2026  Jake Miso                                                                                              *
 //****************************************************************************************************************************
 
 
@@ -23,83 +19,110 @@
 //  Date development of program completed TBD
 //
 //Purpose
-//  Display detailed information about a selected restaurant, including name, rating, price, phone number,
-//  and address.
+//  Display detailed restaurant information and allow the user to save the restaurant to favorites.
 //
 //Project information
 //  Files: FoodFinderApp.swift, ContentView.swift, RestaurantListView.swift, RestaurantDetailView.swift,
-//         Restaurant.swift, YelpResponse.swift, YelpService.swift, Secrets.swift, Secrets.example.swift
+//         Restaurant.swift, YelpResponse.swift, YelpService.swift, FavoritesManager.swift, Secrets.swift,
+//         Secrets.example.swift
 //  Status: In development.
 //
 //===== Begin code area ====================================================================================================================================================
 
-import SwiftUI                                                   //Import SwiftUI for layout and UI components
+import SwiftUI                                            //Import SwiftUI framework for UI components
 
 //==========================================================================================================================================================================
 //===== RestaurantDetailView structure =====================================================================================================================================
 //==========================================================================================================================================================================
 
-struct RestaurantDetailView: View {                              //Begin detail view
+struct RestaurantDetailView: View {                        //Define the detail view structure
+
+    let restaurant: Restaurant                             //Store the selected restaurant passed from the list view
+
+    @State private var statusMessage: String = ""          //Store message shown to user after saving favorite
 
     //======================================================================================================================================================================
-    //===== Stored properties ==============================================================================================================================================
-    //======================================================================================================================================================================
+    //===== Body ==========================================================================================================================================================
+//======================================================================================================================================================================
 
-    let restaurant: Restaurant                                  //Restaurant passed from list view
+    var body: some View {                                  //Define UI layout
 
-    //======================================================================================================================================================================
-    //===== Body property ==================================================================================================================================================
-    //======================================================================================================================================================================
+        VStack(alignment: .leading, spacing: 16) {          //Create vertical stack for layout
 
-    var body: some View {
+            Text(restaurant.name)                           //Display restaurant name
+                .font(.largeTitle)                          //Set font size to large title
+                .fontWeight(.bold)                          //Make text bold
 
-        VStack(alignment: .leading, spacing: 16) {
+            Text("Rating: \(restaurant.rating ?? 0.0)")     //Display rating or 0.0 if nil
+                .font(.title2)                              //Set font size
 
-            Text(restaurant.name)                               //Restaurant name
-                .font(.largeTitle)
-                .fontWeight(.bold)
+            Text("Price: \(restaurant.price ?? "N/A")")     //Display price or fallback
+                .font(.title3)                              //Set font size
 
-            Text("Rating: \(restaurant.rating ?? 0.0)")         //Rating
-                .font(.title2)
+            Text("Phone: \(restaurant.phone ?? "N/A")")     //Display phone or fallback
 
-            Text("Price: \(restaurant.price ?? "N/A")")         //Price
-                .font(.title3)
+            Text("Address: \(formatAddress())")             //Display formatted address
 
-            Text("Phone: \(restaurant.phone ?? "N/A")")         //Phone
-                .font(.body)
+            //==================================================
+            // Add to Favorites Button
+            //==================================================
 
-            Text("Address: \(formatAddress())")                //Address
-                .font(.body)
-
-            if let urlString = restaurant.url,                  //Check if Yelp URL exists
-               let url = URL(string: urlString) {
-
-                Link("View on Yelp", destination: url)          //Open Yelp page
-                    .font(.headline)
-                    .foregroundColor(.blue)
+            Button("Add to Favorites") {                    //Create button for saving favorite
+                addToFavorites()                            //Call function when button is pressed
             }
+            .padding()                                     //Add spacing around button
+            .background(Color.blue)                         //Set button background color
+            .foregroundColor(.white)                        //Set text color
+            .cornerRadius(8)                                //Round button corners
 
-            Spacer()
+            Text(statusMessage)                             //Display status message
+                .foregroundColor(.green)                    //Set message color
+
+            Spacer()                                        //Push content upward
         }
-        .padding()
-        .navigationTitle("Details")
+        .padding()                                          //Add padding to entire view
+        .navigationTitle("Details")                          //Set navigation bar title
     }
 
     //======================================================================================================================================================================
-    //===== Address formatter ==============================================================================================================================================
+    //===== Add to Favorites ==============================================================================================================================================
 //======================================================================================================================================================================
 
-    private func formatAddress() -> String {
+    private func addToFavorites() {                          //Function to save restaurant
 
-        guard let location = restaurant.location else {
-            return "Address not available"
+        do {                                                 //Begin try-catch block
+
+            let manager = try FavoritesManager()             //Create database manager
+
+            let category = restaurant.price ?? "unknown"     //Use price as category placeholder
+
+            try manager.addFavorite(name: restaurant.name,   //Insert restaurant name
+                                    category: category)     //Insert category value
+
+            statusMessage = "Saved to favorites!"            //Update success message
+
+        } catch {                                            //Catch any errors
+
+            statusMessage = "Error saving favorite"          //Update failure message
+            print(error)                                     //Print error to console
+        }
+    }
+
+    //======================================================================================================================================================================
+    //===== Address formatter =============================================================================================================================================
+//======================================================================================================================================================================
+
+    private func formatAddress() -> String {                 //Function to build address string
+
+        guard let location = restaurant.location else {      //Check if location exists
+            return "Address not available"                   //Return fallback if nil
         }
 
-        let street = location.address1 ?? ""
-        let city = location.city ?? ""
-        let state = location.state ?? ""
+        let street = location.address1 ?? ""                 //Get street or empty string
+        let city = location.city ?? ""                       //Get city or empty string
+        let state = location.state ?? ""                     //Get state or empty string
 
-        return "\(street), \(city), \(state)"
+        return "\(street), \(city), \(state)"               //Return formatted address
     }
 }
 

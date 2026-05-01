@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		071BB7022FA414FA00A81F54 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 071BB7012FA414FA00A81F54 /* SQLite */; };
-		071BB7042FA414FA00A81F54 /* SQLite-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 071BB7032FA414FA00A81F54 /* SQLite-Dynamic */; };
+		070FD5702FA56D1C00051945 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 070FD56F2FA56D1C00051945 /* SQLite */; };
+		078D5C9E2FA567CF00E430F5 /* FavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078D5C9D2FA567CF00E430F5 /* FavoritesManager.swift */; };
 		07FD27292F9F47770074659C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD27262F9F47770074659C /* ContentView.swift */; };
 		07FD272A2F9F47770074659C /* FoodFinderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD27272F9F47770074659C /* FoodFinderApp.swift */; };
 		07FD272B2F9F47770074659C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07FD27252F9F47770074659C /* Assets.xcassets */; };
@@ -18,11 +18,11 @@
 		07FD273A2F9F48830074659C /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD27392F9F487D0074659C /* Restaurant.swift */; };
 		07FD273C2F9F48930074659C /* YelpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD273B2F9F488D0074659C /* YelpResponse.swift */; };
 		07FD273E2F9F48A20074659C /* YelpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD273D2F9F489D0074659C /* YelpService.swift */; };
-		07FD27402F9F48B30074659C /* FavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD273F2F9F48AC0074659C /* FavoritesManager.swift */; };
 		07FD27442FA155C20074659C /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FD27432FA155BD0074659C /* Secrets.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		078D5C9D2FA567CF00E430F5 /* FavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManager.swift; sourceTree = "<group>"; };
 		07FD270E2F9F395A0074659C /* FoodFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07FD27252F9F47770074659C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		07FD27262F9F47770074659C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -33,7 +33,6 @@
 		07FD27392F9F487D0074659C /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		07FD273B2F9F488D0074659C /* YelpResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpResponse.swift; sourceTree = "<group>"; };
 		07FD273D2F9F489D0074659C /* YelpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YelpService.swift; sourceTree = "<group>"; };
-		07FD273F2F9F48AC0074659C /* FavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManager.swift; sourceTree = "<group>"; };
 		07FD27412F9F48BB0074659C /* Secrets.example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.example.swift; sourceTree = "<group>"; };
 		07FD27432FA155BD0074659C /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -43,8 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				071BB7042FA414FA00A81F54 /* SQLite-Dynamic in Frameworks */,
-				071BB7022FA414FA00A81F54 /* SQLite in Frameworks */,
+				070FD5702FA56D1C00051945 /* SQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,7 +118,7 @@
 		07FD27302F9F47F20074659C /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
-				07FD273F2F9F48AC0074659C /* FavoritesManager.swift */,
+				078D5C9D2FA567CF00E430F5 /* FavoritesManager.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -151,8 +149,7 @@
 			);
 			name = FoodFinder;
 			packageProductDependencies = (
-				071BB7012FA414FA00A81F54 /* SQLite */,
-				071BB7032FA414FA00A81F54 /* SQLite-Dynamic */,
+				070FD56F2FA56D1C00051945 /* SQLite */,
 			);
 			productName = FoodFinder;
 			productReference = 07FD270E2F9F395A0074659C /* FoodFinder.app */;
@@ -183,7 +180,7 @@
 			mainGroup = 07FD27052F9F395A0074659C;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				071BB7002FA414FA00A81F54 /* XCRemoteSwiftPackageReference "SQLite" */,
+				070FD56E2FA56D1C00051945 /* XCRemoteSwiftPackageReference "SQLite" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 07FD270F2F9F395A0074659C /* Products */;
@@ -218,7 +215,7 @@
 				07FD273C2F9F48930074659C /* YelpResponse.swift in Sources */,
 				07FD27382F9F48610074659C /* RestaurantListView.swift in Sources */,
 				07FD27332F9F48210074659C /* FavoritesView.swift in Sources */,
-				07FD27402F9F48B30074659C /* FavoritesManager.swift in Sources */,
+				078D5C9E2FA567CF00E430F5 /* FavoritesManager.swift in Sources */,
 				07FD273E2F9F48A20074659C /* YelpService.swift in Sources */,
 				07FD27442FA155C20074659C /* Secrets.swift in Sources */,
 			);
@@ -432,7 +429,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		071BB7002FA414FA00A81F54 /* XCRemoteSwiftPackageReference "SQLite" */ = {
+		070FD56E2FA56D1C00051945 /* XCRemoteSwiftPackageReference "SQLite" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/stephencelis/SQLite.swift";
 			requirement = {
@@ -443,15 +440,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		071BB7012FA414FA00A81F54 /* SQLite */ = {
+		070FD56F2FA56D1C00051945 /* SQLite */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 071BB7002FA414FA00A81F54 /* XCRemoteSwiftPackageReference "SQLite" */;
+			package = 070FD56E2FA56D1C00051945 /* XCRemoteSwiftPackageReference "SQLite" */;
 			productName = SQLite;
-		};
-		071BB7032FA414FA00A81F54 /* SQLite-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 071BB7002FA414FA00A81F54 /* XCRemoteSwiftPackageReference "SQLite" */;
-			productName = "SQLite-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
