@@ -23,12 +23,13 @@ import SwiftUI                                                   //Import SwiftU
 struct RestaurantListView: View {                                //Begin RestaurantListView structure
 
     let restaurants: [Restaurant]                                //Restaurant array received from ContentView
+    let category: String                                         //Category received from ContentView
 
     var body: some View {                                        //Begin body property
 
         List(restaurants) { restaurant in                        //Create a list row for each Restaurant object
 
-            NavigationLink(destination: RestaurantDetailView(restaurant: restaurant)) { //Make row tappable
+            NavigationLink(destination: RestaurantDetailView(restaurant: restaurant, category: category)) { //Make row tappable
 
                 VStack(alignment: .leading, spacing: 6) {        //Display restaurant info inside row
 

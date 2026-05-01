@@ -55,7 +55,7 @@ struct ContentView: View {                                       //Begin main Sw
                     .font(.subheadline)                         //Use smaller font
                     .foregroundColor(.gray)                     //Make status text gray
 
-                RestaurantListView(restaurants: restaurants)     //Display tappable restaurant results
+                RestaurantListView(restaurants: restaurants, category: category)     //Display tappable restaurant results
             }
             .navigationTitle("Restaurant Search")               //Set navigation title
             .toolbar {                                          //Adds a Toolbar button that navigates to FavovoritesView
