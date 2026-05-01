@@ -24,26 +24,21 @@ struct RestaurantDetailView: View{
                     .font(.subheadline)
             }
             
-            if let url = chosenRestaurant.url {
-                Text("Website: \(url) ")
+            if let urlString = chosenRestaurant.url, let url = URL(string: urlString) {
+                Link("Visit \(chosenRestaurant.name) on Yelp!", destination: url)
                     .font(.subheadline)
             }
             
-            if let location = chosenRestaurant.location, let address = location.address1, let city = location.city, let state = location.state, let zip = location.zip_code {
-                Text(address)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                Text(city)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                Text(state)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                Text(zip)
+            if let location = chosenRestaurant.location {
+                Text([location.address1, location.city, location.state, location.zip_code]
+                    //compact map removes nl values fro the array and unwraps String? to String
+                     //$0 is the current element in the closure
+                    .compactMap { $0 }
+                    .joined(separator: ", "))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
-            
+            Spacer()
         }
     }
 }
