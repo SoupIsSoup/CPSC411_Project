@@ -46,6 +46,7 @@ struct RestaurantDetailView: View {                              //Begin detail 
     //======================================================================================================================================================================
 
     let restaurant: Restaurant                                  //Restaurant passed from list view
+    let category: String
 
     //======================================================================================================================================================================
     //===== Body property ==================================================================================================================================================
@@ -59,7 +60,7 @@ struct RestaurantDetailView: View {                              //Begin detail 
                 .font(.largeTitle)
                 .fontWeight(.bold)
 
-            Text("Rating: \(restaurant.rating ?? 0.0)")         //Rating
+            Text("Rating: \(restaurant.rating ?? 0.0, specifier: "%.1f") ⭐")         //Rating
                 .font(.title2)
 
             Text("Price: \(restaurant.price ?? "N/A")")         //Price
@@ -78,6 +79,16 @@ struct RestaurantDetailView: View {                              //Begin detail 
                     .font(.headline)
                     .foregroundColor(.blue)
             }
+            Button("Favorite") {
+                do {
+                    let manager = try FavoritesManager()
+                    try manager.addFavorite(name: restaurant.name, category: category)
+                } catch {
+                    print("Failed to add favorite: \(error)")
+                }
+            }
+            .buttonStyle(.borderedProminent)
+            .padding()
 
             Spacer()
         }

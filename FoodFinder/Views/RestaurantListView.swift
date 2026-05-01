@@ -35,7 +35,7 @@ struct RestaurantListView: View {                                //Begin Restaur
                     Text(restaurant.name)                        //Restaurant name
                         .font(.headline)
 
-                    Text("Rating: \(restaurant.rating ?? 0.0)") //Rating
+                    Text("Rating: \(restaurant.rating ?? 0.0, specifier: "%.1f") ⭐") //Rating
                         .font(.subheadline)
 
                     Text(restaurant.price ?? "No price listed") //Price

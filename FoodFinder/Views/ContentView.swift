@@ -58,6 +58,13 @@ struct ContentView: View {                                       //Begin main Sw
                 RestaurantListView(restaurants: restaurants)     //Display tappable restaurant results
             }
             .navigationTitle("Restaurant Search")               //Set navigation title
+            .toolbar {                                          //Adds a Toolbar button that navigates to FavovoritesView
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink("Favorites") {
+                        FavoritesView(category: category)
+                    }
+                }
+            }
         }
     }
 
