@@ -1,6 +1,6 @@
 //****************************************************************************************************************************
 //Program name: "FavoritesManager.swift".  This file manages storage of favorite restaurants using SQLite.                  *
-//It provides functionality to create the database, insert favorite restaurants, and retrieve saved data.                  *
+//It creates the database, inserts favorite restaurants, and retrieves saved favorites.                                     *
 //Copyright (C) 2026  Jake Miso                                                                                              *
 //This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License *
 //version 3 as published by the Free Software Foundation.                                                                    *
@@ -24,13 +24,12 @@
 //  Date development of program completed TBD
 //
 //Purpose
-//  Store and retrieve favorite restaurants locally using SQLite.  This file handles database creation,
-//  insertion of new favorites, and retrieval of saved favorites.
+//  Store and retrieve favorite restaurants locally using SQLite database.
 //
 //Project information
 //  Files: FoodFinderApp.swift, ContentView.swift, RestaurantListView.swift, RestaurantDetailView.swift,
-//         Restaurant.swift, YelpResponse.swift, YelpService.swift, FavoritesManager.swift, Secrets.swift,
-//         Secrets.example.swift
+//         FavoritesView.swift, Restaurant.swift, YelpResponse.swift, YelpService.swift, FavoritesManager.swift,
+//         Secrets.swift, Secrets.example.swift
 //  Status: In development.
 //
 //Translator information
@@ -47,25 +46,25 @@
 //
 //===== Begin code area ====================================================================================================================================================
 
-import Foundation                                              //Import Foundation for file system access
-import SQLite                                                  //Import SQLite.swift package for database functionality
+import Foundation                                             //Import Foundation for file handling and system paths
+import SQLite                                                 //Import SQLite.swift package for database operations
 
 //==========================================================================================================================================================================
 //===== FavoritesManager class =============================================================================================================================================
 //==========================================================================================================================================================================
 
-final class FavoritesManager {                                 //Begin FavoritesManager class
+final class FavoritesManager {                                //Define the FavoritesManager class
 
     //======================================================================================================================================================================
     //===== Stored properties ==============================================================================================================================================
     //======================================================================================================================================================================
 
-    private let db: Connection                                 //SQLite database connection
-    private let favorites = Table("favorites")                 //Favorites table
+    private let db: Connection                                //SQLite database connection object
+    private let favorites = Table("favorites")                //Define the "favorites" table
 
-    private let id = Expression<Int64>("id")                   //Primary key column
-    private let name = Expression<String>("name")              //Restaurant name column
-    private let category = Expression<String>("category")      //Restaurant category column
+    private let id = Expression<Int64>("id")                  //Define primary key column
+    private let name = Expression<String>("name")             //Define restaurant name column
+    private let category = Expression<String>("category")     //Define category column
 
     //======================================================================================================================================================================
     //===== Initialization ================================================================================================================================================
@@ -73,23 +72,21 @@ final class FavoritesManager {                                 //Begin Favorites
     //  This initializer creates or opens the SQLite database file and ensures the favorites table exists.
     //======================================================================================================================================================================
 
-    init() throws {
+    init() throws {                                           //Initializer that may throw errors
 
-        // Create path to database file in the app's Documents directory
-        let url = try FileManager.default
-            .url(for: .documentDirectory,
-                 in: .userDomainMask,
-                 appropriateFor: nil,
-                 create: true)
-            .appendingPathComponent("favorites.sqlite3")
+        let url = try FileManager.default                     //Access file manager
+            .url(for: .documentDirectory,                     //Get documents directory
+                 in: .userDomainMask,                         //User domain
+                 appropriateFor: nil,                         //No specific file
+                 create: true)                                //Create directory if needed
+            .appendingPathComponent("favorites.sqlite3")      //Append database file name
 
-        db = try Connection(url.path)                          //Establish connection to database file
+        db = try Connection(url.path)                         //Create SQLite connection
 
-        // Create favorites table if it does not already exist
-        try db.run(favorites.create(ifNotExists: true) { t in
-            t.column(id, primaryKey: .autoincrement)           //Auto-increment primary key
-            t.column(name)                                     //Restaurant name column
-            t.column(category)                                 //Category column
+        try db.run(favorites.create(ifNotExists: true) { t in //Create table if it does not exist
+            t.column(id, primaryKey: .autoincrement)          //Create auto-increment primary key
+            t.column(name)                                    //Create name column
+            t.column(category)                                //Create category column
         })
     }
 
@@ -99,26 +96,27 @@ final class FavoritesManager {                                 //Begin Favorites
     //  Inserts a new favorite restaurant into the database.
     //======================================================================================================================================================================
 
-    func addFavorite(name: String, category: String) throws {
+    func addFavorite(name: String, category: String) throws { //Function to insert favorite
 
-        let insert = favorites.insert(self.name <- name,
-                                      self.category <- category)
+        let insert = favorites.insert(                        //Create insert statement
+            self.name <- name,                                //Set name column value
+            self.category <- category                         //Set category column value
+        )
 
-        try db.run(insert)                                     //Execute insert statement
+        try db.run(insert)                                    //Execute insert query
     }
 
     //======================================================================================================================================================================
     //===== Get favorites function =========================================================================================================================================
 //======================================================================================================================================================================
-    //  Retrieves all favorite restaurants from the database and returns them as formatted strings.
+    //  Retrieves all favorite restaurants from the database.
     //======================================================================================================================================================================
 
-    func getFavorites() throws -> [String] {
+    func getFavorites() throws -> [String] {                  //Function to retrieve favorites
 
-        try db.prepare(favorites).map { row in                 //Query all rows in favorites table
-            "\(row[name]) - \(row[category])"                 //Format result string
+        try db.prepare(favorites).map { row in               //Query all rows in favorites table
+            "\(row[name]) - \(row[category])"               //Format each row into string
         }
     }
 }
-
 

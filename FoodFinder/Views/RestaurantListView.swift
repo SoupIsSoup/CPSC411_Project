@@ -2,52 +2,74 @@
 //Program name: "RestaurantListView.swift".  This file displays restaurant search results in a scrollable list.  Each row    *
 //shows basic restaurant information returned from the Yelp API and allows navigation to a detail screen.                   *
 //Copyright (C) 2026  Jake Miso                                                                                              *
-//This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License *
-//version 3 as published by the Free Software Foundation.                                                                    *
-//This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied        *
-//warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.    *
-//A copy of the GNU General Public License v3 is available here:  <https://www.gnu.org/licenses/>.                          *
 //****************************************************************************************************************************
 
 
 
 
+//========1=========2=========3=========4=========5=========6=========7=========8=========9=========0=========1=========2**
+//Author information
+//  Author name: Jake Miso
+//  Author email: jamiso@csu.fullerton.edu
+//
+//Program information
+//  Program name: FoodFinder
+//  Programming language: Swift
+//  Date development of program began 2026-Apr-28
+//  Date development of program completed TBD
+//
+//Purpose
+//  Display an array of Restaurant objects in a SwiftUI List and allow navigation to a detailed view for each restaurant.
+//
+//Project information
+//  Files: FoodFinderApp.swift, ContentView.swift, RestaurantListView.swift, RestaurantDetailView.swift,
+//         FavoritesView.swift, Restaurant.swift, YelpResponse.swift, YelpService.swift, FavoritesManager.swift,
+//         Secrets.swift, Secrets.example.swift
+//  Status: In development.
+//
 //===== Begin code area ====================================================================================================================================================
 
-import SwiftUI                                                   //Import SwiftUI for List, NavigationLink, VStack, and layout tools
+import SwiftUI                                                   //Import SwiftUI for List, NavigationLink, VStack, and Text
 
 //==========================================================================================================================================================================
 //===== RestaurantListView structure =======================================================================================================================================
 //==========================================================================================================================================================================
 
-struct RestaurantListView: View {                                //Begin RestaurantListView structure
+struct RestaurantListView: View {                                //Define RestaurantListView structure
 
-    let restaurants: [Restaurant]                                //Restaurant array received from ContentView
-    let category: String                                         //Category received from ContentView
+    //======================================================================================================================================================================
+    //===== Stored properties ==============================================================================================================================================
+    //======================================================================================================================================================================
 
-    var body: some View {                                        //Begin body property
+    let restaurants: [Restaurant]                                //Store restaurant array passed from ContentView
 
-        List(restaurants) { restaurant in                        //Create a list row for each Restaurant object
+    //======================================================================================================================================================================
+    //===== Body property ==================================================================================================================================================
+    //======================================================================================================================================================================
 
-            NavigationLink(destination: RestaurantDetailView(restaurant: restaurant, category: category)) { //Make row tappable
+    var body: some View {                                        //Define view layout
 
-                VStack(alignment: .leading, spacing: 6) {        //Display restaurant info inside row
+        List(restaurants) { restaurant in                        //Create one list row for each restaurant
 
-                    Text(restaurant.name)                        //Restaurant name
-                        .font(.headline)
+            NavigationLink(destination: RestaurantDetailView(restaurant: restaurant)) { //Navigate using restaurant only
 
-                    Text("Rating: \(restaurant.rating ?? 0.0, specifier: "%.1f") ⭐") //Rating
-                        .font(.subheadline)
+                VStack(alignment: .leading, spacing: 6) {        //Stack restaurant row text vertically
 
-                    Text(restaurant.price ?? "No price listed") //Price
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
+                    Text(restaurant.name)                        //Display restaurant name
+                        .font(.headline)                         //Use headline font
 
-                    Text(formatAddress(for: restaurant))         //Address
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+                    Text("Rating: \(restaurant.rating ?? 0.0)")  //Display rating or fallback value
+                        .font(.subheadline)                      //Use subheadline font
+
+                    Text(restaurant.price ?? "No price listed")  //Display price or fallback text
+                        .font(.subheadline)                      //Use subheadline font
+                        .foregroundColor(.gray)                  //Make price gray
+
+                    Text(formatAddress(for: restaurant))         //Display formatted restaurant address
+                        .font(.caption)                          //Use caption font
+                        .foregroundColor(.secondary)             //Use secondary color
                 }
-                .padding(.vertical, 6)
+                .padding(.vertical, 6)                           //Add vertical row padding
             }
         }
     }
@@ -55,18 +77,21 @@ struct RestaurantListView: View {                                //Begin Restaur
     //======================================================================================================================================================================
     //===== Format address helper function =================================================================================================================================
     //======================================================================================================================================================================
+    //  Builds a readable address string from the optional YelpLocation object.
+    //======================================================================================================================================================================
 
-    private func formatAddress(for restaurant: Restaurant) -> String {
+    private func formatAddress(for restaurant: Restaurant) -> String { //Begin address formatting function
 
-        guard let location = restaurant.location else {
-            return "Address not available"
+        guard let location = restaurant.location else {           //Check if restaurant has location data
+            return "Address not available"                       //Return fallback if location is missing
         }
 
-        let street = location.address1 ?? ""
-        let city = location.city ?? ""
-        let state = location.state ?? ""
+        let street = location.address1 ?? ""                      //Get street address or empty string
+        let city = location.city ?? ""                            //Get city or empty string
+        let state = location.state ?? ""                          //Get state or empty string
 
-        return "\(street), \(city), \(state)"
+        return "\(street), \(city), \(state)"                     //Return formatted address
     }
 }
+
 
